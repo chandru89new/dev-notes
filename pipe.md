@@ -43,7 +43,7 @@ But we could do something that's better:
 
 ```js
 const x = 3
-const pipedFunction = pipe(
+const pipedFunc = pipe(
   double,
   add1square,
   onethird
