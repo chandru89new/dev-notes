@@ -40,3 +40,7 @@ console.log(
   getValue('name')(getValue('user')(obj))
 )
 ````
+
+The `getValue` function is what's a curried function (or a higher-order function). [Here's more][curry] on curried functions.
+
+[curry]:https://www.sitepoint.com/currying-in-functional-javascript/

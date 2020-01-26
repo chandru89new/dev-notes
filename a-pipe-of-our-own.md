@@ -104,13 +104,25 @@ const pipe = (...fns) => (...args) => {
 }
 ````
 
+Here's a somewhat shorter version of the same using [`apply`][apply]:
+
+```js
+// we make args an array using the spread-operator (same as we did with functions)
+const pipe = (...fns) => (...args) => { 
+  return fns.reduce((arg, currFn) => {
+    return currFn.apply(null, Array.isArray(arg) ? arg : [arg])
+  }, args) // we pass in the arguments as an array (so if you sent fn(2,3), the args will be [2,3])
+}
+````
+
 Here's some interesting things (limitations) that you should notice about pipe functions:
 (and these sort of give us an insight into functional programming)
 
-- you'll notice that the next function in the pipe expects a single argument only. That means the preceding function must return a value - and a value that this current function can accept and work on.
-- the pipe is what's called a higher-order function : that is, it's a function that returns another function which we can (and did) use
-- also notice how the pipe (and the functions inside the pipe) produce a new value. They don't mutate or change any of the actual inputs you gave: they simply use them and produce a new value from them. This is called pure functions. 
+- you'll notice that the next function in the pipe expects an argument. That means the preceding function must return values - and values that the next function can accept and work on.
+- the pipe is what's called a higher-order function : that is, it's a function that returns another function which we can (and did) use.
+- also notice how the pipe (and the functions inside the pipe) produces a new value. They don't mutate or change any of the actual inputs you gave: they simply use them and produce a new value from them. This is called pure functions. 
 
 
 [spread-operator]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 [array-reduce]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+[apply]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
